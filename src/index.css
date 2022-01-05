@@ -1,5 +1,7 @@
 body {
+  overflow: hidden;
   margin: 0;
+  height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -40,6 +42,7 @@ ul {
   align-items: center;
 }
 .nav-header {
+  height: 5vh;
   display: flex;
   align-items: center;
   padding-right: 50px;
@@ -100,15 +103,13 @@ ul {
 }
 
 .daily-word-box {
-  padding: 15px;
   min-height: 150px;
   max-width: 600px;
-  font-size: xx-large;
+  font-size: x-large;
 }
 .word-noun {
   display: flex;
   align-items: baseline;
-  justify-content: center;
 }
 
 .title {
@@ -116,9 +117,8 @@ ul {
 }
 
 .home-header {
-  text-align: center;
   margin-bottom: 10px;
-  font-size: 80px;
+  font-size: 65px;
   word-spacing: 10px;
   color: #525455;
 }
@@ -126,13 +126,11 @@ ul {
   background-color: #d3dedc;
   height: 10px;
   width: 300px;
-  margin: auto;
   margin-bottom: 20px;
 }
 
 .daily-word-definition {
   margin-top: 0px;
-  text-align: center;
 }
 
 /*SAVED WORDS*/
@@ -161,4 +159,82 @@ ul {
   font-size: 25px;
   max-height: 500px;
   overflow-y: auto;
+}
+
+/* DICTIONARY */
+
+.dict-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.synonym-container {
+  background-color: #d3dedc;
+  height: calc(100vh - 60.05px);
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "Playfair Display";
+}
+
+.synonym-title {
+  font-size: 40px;
+  margin-bottom: 0;
+}
+.synonym-underline {
+  background-color: #ffffff;
+  height: 10px;
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.synoynm-words {
+  font-size: 25px;
+  background-color: white;
+  margin: 10px 5px 0px 0px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 30px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.words-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.definition-container {
+  padding: 50px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "Playfair Display";
+}
+
+.definition-title {
+  font-size: 40px;
+  margin-bottom: 0;
+}
+.definition-underline {
+  background-color: #d3dedc;
+  height: 10px;
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.definition-header {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.pronunciation {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.definition {
+  font-size: 20px;
 }

@@ -11,6 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+:root {
+  --black: #0c0f1e;
+}
 /* FONT */
 @font-face {
   font-family: NeueMontreal;
@@ -84,4 +87,59 @@ ul {
 .language {
   padding-right: 10px;
   border-right: 1px solid #aaaaaa;
+}
+
+/* HOME */
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-family: "Playfair Display";
+}
+
+.daily-word-box {
+  padding: 15px;
+  min-height: 150px;
+  max-width: 600px;
+  font-size: xx-large;
+}
+.word-noun {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.title {
+  margin-right: 10px;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 80px;
+  word-spacing: 10px;
+  color: #525455;
+}
+.home-underline {
+  background-color: #d3dedc;
+  height: 10px;
+  width: 300px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.daily-word-definition {
+  margin-top: 0px;
+  text-align: center;
+}
+.quotations {
+  display: flex;
+  justify-content: space-between;
+}
+
+.curly-quotes {
+  font-family: cursive;
+  font-size: 40px;
 }

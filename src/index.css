@@ -1,13 +1,87 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+/* FONT */
+@font-face {
+  font-family: NeueMontreal;
+  src: url(./fonts/NeueMontreal-Regular.otf);
+}
+/* NAVBAR */
+
+ul {
+  list-style: none;
+  padding: 5px;
+}
+.logo {
+  height: 50px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.bookmark {
+  height: 20px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+.nav-header {
+  display: flex;
+  align-items: center;
+  padding-right: 50px;
+  padding-left: 50px;
+  justify-content: space-between;
+  margin: 5px;
+  padding-bottom: 10px;
+  font-family: NeueMontreal;
+  font-size: 16px;
+  box-shadow: 0px 24px 3px -24px rgba(23, 19, 35, 0.274);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  width: 500px;
+  height: 15px;
+  border-color: #aaaaaa;
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.search-bar {
+  border: none;
+  margin-left: 15px;
+  width: 100%;
+}
+
+.search-bar:focus {
+  outline: none;
+}
+
+.search-button {
+  background: none;
+  border: none;
+}
+
+.language {
+  padding-right: 10px;
+  border-right: 1px solid #aaaaaa;
 }

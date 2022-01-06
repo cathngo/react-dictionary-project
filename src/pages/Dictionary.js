@@ -1,6 +1,60 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import bookmark from '../bookmark.svg'
+import {useParams} from 'react-router-dom'
+import audio from '../audio.svg'
+
+const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
+
+
 export default function Dictionary() {
+    const {word} = useParams()
+    const [content, setContent] = useState({title: '', 
+                                            synonyms: [],
+                                            text: '',
+                                            audio: '',
+                                            meanings: []})
+
+    useEffect(()=> {
+        //console.log(word)
+        const fetchResults = async () => {
+            try {
+                const response = await fetch(`${url}${word}`)
+                const data= await response.json()
+    
+                //combine text phoenetics into one string
+                let combinedText = ''
+                data[0]['phonetics'].map((item)=>{
+                    if (combinedText == '') {
+                        combinedText = combinedText + item['text']
+                    } else {
+                        combinedText = combinedText + ","+ item['text']
+                    }
+                })
+                 setContent({title: data[0]['word'], 
+                            text: '/' + combinedText + "/",
+                            audio: data[0]['phonetics'][0]['audio'],
+                            meanings: data[0]['meanings']
+                        })
+               
+            /*
+                data[0]['meanings'].map((item)=> {
+                    console.log(item['partOfSpeech'])
+                    console.log(item['definitions'][0]['definition'])
+                })
+                */
+           
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchResults()
+    }, [word])
+
+    //audio pronunciation of word
+    const playAudio = () => {
+        let audio = new Audio(content.audio)
+        audio.play()
+    }
     return (
         <>
         <div className='dict-container'>
@@ -19,11 +73,20 @@ export default function Dictionary() {
                     <div className='definition-underline'></div>
                     <div className='definition-header'>
                         <img src={bookmark} alt='bookmark'/>
-                        <span style={{fontSize: '40px'}}>reindeer</span>
-                        <span style={{fontSize: '25px'}}>noun</span>
+                        <span style={{fontSize: '40px'}}>{content.title}</span>
                     </div>
-                    <p className='pronunciation'>rein·​deer | \ ˈrān-ˌdir  \</p>
-                    <p className='definition'>a deer of the tundra and subarctic regions of Eurasia and North America, both sexes of which have large branching antlers. Most Eurasian reindeer are domesticated and used for drawing sledges and as a source of milk, flesh, and hide.</p>
+                    <div className='phonetics'>
+                        <p className='pronunciation'>{content.text}</p>
+                        <img src={audio} style={{marginTop: '20px'}} alt='audio' onClick={playAudio}/>
+                    </div>
+                    {content.meanings.map((item, index)=>{
+                        return(
+                        <div key={index}>
+                            <p className='definition' key={index + 5}>{item['partOfSpeech']}</p>
+                            <p className='definition' key={index + 3}>{item['definitions'][0]['definition']}</p>
+                        </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>

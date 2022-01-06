@@ -22,6 +22,10 @@ code {
   src: url(./fonts/NeueMontreal-Regular.otf);
 }
 /* NAVBAR */
+.link {
+  text-decoration: none;
+  color: black;
+}
 
 ul {
   list-style: none;

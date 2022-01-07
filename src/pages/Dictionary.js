@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import bookmark from '../bookmark.svg'
+import {ReactComponent as Bookmark} from '../bookmark.svg'
 import {useParams} from 'react-router-dom'
 import audio from '../audio.svg'
 //page switch
@@ -9,12 +10,15 @@ const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
 
 export default function Dictionary() {
+    const bookmarkRef = useRef()
     const {word} = useParams()
     const [content, setContent] = useState({title: '', 
                                             synonyms: [],
                                             text: '',
                                             audio: '',
-                                            meanings: []})
+                                            meanings: []
+                                        })
+    const [isSaved, setIsSaved] = useState(false)
 
     useEffect(()=> {
         //console.log(word)
@@ -66,6 +70,12 @@ export default function Dictionary() {
           history.push(`/define/${synonym}`)
           window.location.reload()
     }
+
+    const favouriteWord = () => {
+        console.log('here')
+        setIsSaved(!isSaved)
+    }
+
     return (
         <>
         <div className='dict-container'>
@@ -85,7 +95,10 @@ export default function Dictionary() {
                     <p className='definition-title'>Definition</p>
                     <div className='definition-underline'></div>
                     <div className='definition-header'>
-                        <img src={bookmark} alt='bookmark'/>
+                        { isSaved == true ?  <Bookmark fill='#F4B6B6' onClick={favouriteWord}/> :
+                            <Bookmark onClick={favouriteWord}/>
+                        }
+                        {/*<img src={bookmark} alt='bookmark' onClick={favouriteWord} ref={bookmarkRef}/>*/}
                         <span style={{fontSize: '40px'}}>{content.title}</span>
                     </div>
                     <div className='phonetics'>

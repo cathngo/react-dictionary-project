@@ -30,19 +30,23 @@ export default function Dictionary() {
                         combinedText = combinedText + ","+ item['text']
                     }
                 })
-                 setContent({title: data[0]['word'], 
-                            text: '/' + combinedText + "/",
-                            audio: data[0]['phonetics'][0]['audio'],
-                            meanings: data[0]['meanings']
-                        })
-               
-            /*
+
+
+               //grab each synonym and put into one array
+                const synonymArray = []
                 data[0]['meanings'].map((item)=> {
-                    console.log(item['partOfSpeech'])
-                    console.log(item['definitions'][0]['definition'])
+                   item['definitions'][0]['synonyms'].map((item)=>{
+                        synonymArray.push(item)
+                    })
                 })
-                */
-           
+
+                setContent({title: data[0]['word'], 
+                    text: '/' + combinedText + "/",
+                    audio: data[0]['phonetics'][0]['audio'],
+                    meanings: data[0]['meanings'],
+                    synonyms: synonymArray,
+                })
+
             } catch (error) {
                 console.log(error)
             }
@@ -64,7 +68,9 @@ export default function Dictionary() {
                     <div className='synonym-underline'></div>
                 </div>
                 <div className='words-container'>
-                    <span className='synoynm-words'>word</span>
+                    {content.synonyms.map((item,index)=>{
+                        return(<span className='synoynm-words' key={index+13}>{item}</span>)
+                    })}
                 </div>
             </div>
             <div>

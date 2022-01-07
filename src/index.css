@@ -1,5 +1,4 @@
 body {
-  overflow: hidden;
   margin: 0;
   height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -215,6 +214,7 @@ ul {
   flex-direction: column;
   justify-content: flex-start;
   font-family: "Playfair Display";
+  overflow-y: auto;
 }
 
 .definition-title {

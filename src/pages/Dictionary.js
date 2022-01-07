@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import bookmark from '../bookmark.svg'
 import {useParams} from 'react-router-dom'
 import audio from '../audio.svg'
+//page switch
+import history from '../history';
 
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
@@ -59,6 +61,11 @@ export default function Dictionary() {
         let audio = new Audio(content.audio)
         audio.play()
     }
+
+    const handleSynonym = (synonym) => {
+          history.push(`/define/${synonym}`)
+          window.location.reload()
+    }
     return (
         <>
         <div className='dict-container'>
@@ -69,7 +76,7 @@ export default function Dictionary() {
                 </div>
                 <div className='words-container'>
                     {content.synonyms.map((item,index)=>{
-                        return(<span className='synoynm-words' key={index+13}>{item}</span>)
+                        return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
                     })}
                 </div>
             </div>

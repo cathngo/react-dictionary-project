@@ -162,6 +162,7 @@ ul {
   font-size: 25px;
   max-height: 500px;
   overflow-y: auto;
+  cursor: pointer;
 }
 
 /* DICTIONARY */
@@ -200,6 +201,7 @@ ul {
   border-radius: 30px;
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
 }
 
 .words-container {
@@ -246,4 +248,13 @@ ul {
 .phonetics {
   display: flex;
   gap: 30px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.audio {
+  cursor: pointer;
+  margin-top: 20px;
 }

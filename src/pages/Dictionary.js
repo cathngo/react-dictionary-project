@@ -154,15 +154,15 @@ export default function Dictionary() {
                     <p className='definition-title'>Definition</p>
                     <div className='definition-underline'></div>
                     <div className='definition-header'>
-                        { isSaved == true ?  <Bookmark fill='#F4B6B6' onClick={favouriteWord}/> :
-                            <Bookmark onClick={favouriteWord}/>
+                        { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
+                            <Bookmark onClick={favouriteWord} className='clickable'/>
                         }
                         {/*<img src={bookmark} alt='bookmark' onClick={favouriteWord} ref={bookmarkRef}/>*/}
                         <span style={{fontSize: '40px'}}>{content.title}</span>
                     </div>
                     <div className='phonetics'>
                         <p className='pronunciation'>{content.text}</p>
-                        <img src={audio} style={{marginTop: '20px'}} alt='audio' onClick={playAudio}/>
+                        <img src={audio} alt='audio' onClick={playAudio} className='audio'/>
                     </div>
                     {content.meanings.map((item, index)=>{
                         return(

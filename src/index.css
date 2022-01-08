@@ -247,7 +247,3 @@ ul {
   display: flex;
   gap: 30px;
 }
-
-.saved {
-  fill: black;
-}

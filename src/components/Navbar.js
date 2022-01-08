@@ -11,7 +11,8 @@ import history from '../history';
 
 import Dictionary from '../pages/Dictionary';
 export default function Navbar() {
-    const {searchTerm, setSearchTerm} = useGlobalContext()
+    //const {searchTerm, setSearchTerm} = useGlobalContext()
+    const [searchTerm, setSearchTerm] = useState('')
 
     const handleSubmit = (e) => {
         //redirect to definition page

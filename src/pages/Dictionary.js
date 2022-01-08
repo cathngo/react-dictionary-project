@@ -9,6 +9,7 @@ import history from '../history';
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
 
+
 export default function Dictionary() {
     const {word} = useParams()
     const [content, setContent] = useState({title: '', 
@@ -17,10 +18,13 @@ export default function Dictionary() {
                                             audio: '',
                                             meanings: []
                                         })
-    const [isSaved, setIsSaved] = useState(false)
-    const [savedList, setSavedList] = []
+    const prevState = localStorage.getItem(`${word}`)
+
+    const [isSaved, setIsSaved] = useState(prevState === null || prevState === 'false'? false: true)
+
 
     useEffect(()=> {
+        
         const fetchResults = async () => {
             try {
                 const response = await fetch(`${url}${word}`)
@@ -77,14 +81,48 @@ export default function Dictionary() {
 
     const favouriteWord = () => {
         setIsSaved(!isSaved)
+     
+    }
+    /*
+    //if previously saved, set value to saved
+    useEffect(()=>{
+        const prevState = localStorage.getItem(`${word}`)
+        //save state of curr word in local storage
+        if (prevState === null) {
+            console.log('not previosult saved')
+        } else {
+            setIsSaved(prevState)
+            console.log(isSaved)
+        }
+
+    },[])
+    */
+    function checkIsStored() {
+        const stored = localStorage.getItem(`${word}Stored`)
+        if (stored === 'true') {
+            return true
+        } else if (stored === null){
+            return false
+        }
     }
 
     useEffect(()=>{
         //check if any words saved in local storage
         const storedWords = JSON.parse(localStorage.getItem('savedWords'));
 
-        //save word
-        if (isSaved == true) {
+        //save state of curr word in local storage
+        if (isSaved === true) {
+            localStorage.setItem(`${word}`, 'true')
+        } else {
+            localStorage.setItem(`${word}`, 'false')
+        }
+  
+   
+        //save word if they clicked true and not already saved
+        if (isSaved === true && !checkIsStored()) {
+            //mark word as stored
+            localStorage.setItem(`${word}Stored`, 'true')
+
             //if no words in local storage saved, save curr word
             if (storedWords == null) {
                 localStorage.setItem('savedWords', JSON.stringify([word]))
@@ -98,8 +136,13 @@ export default function Dictionary() {
                 //save new array to localstorage
                 localStorage.setItem('savedWords', JSON.stringify(newList))
             }      
-        } else {
+        } else if (isSaved == false && storedWords !== null && checkIsStored()) {
             //remove word
+           
+            //localStorage.removeItem(`${word}`)
+            //create new list without target word to remove
+            const newList = storedWords.filter(item => item !== word)
+            localStorage.setItem('savedWords', JSON.stringify(newList))
         }
     },[isSaved])
 

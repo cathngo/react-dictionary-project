@@ -5,10 +5,7 @@ import audio from '../audio.svg'
 //page switch
 import history from '../history';
 
-
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
-
-
 
 export default function Dictionary() {
     const {word} = useParams()
@@ -19,9 +16,13 @@ export default function Dictionary() {
                                             meanings: []
                                         })
     const prevState = localStorage.getItem(`${word}`)
+    const [isSaved, setIsSaved] = useState(false)
 
-    const [isSaved, setIsSaved] = useState(prevState === null || prevState === 'false'? false: true)
-
+    //check if word was saved or not                                 
+    useEffect(()=>{
+        const prevState = localStorage.getItem(`${word}`)
+        setIsSaved(prevState === null || prevState === 'false'? false: true)
+    }, [word])
 
     useEffect(()=> {
         
@@ -83,20 +84,7 @@ export default function Dictionary() {
         setIsSaved(!isSaved)
      
     }
-    /*
-    //if previously saved, set value to saved
-    useEffect(()=>{
-        const prevState = localStorage.getItem(`${word}`)
-        //save state of curr word in local storage
-        if (prevState === null) {
-            console.log('not previosult saved')
-        } else {
-            setIsSaved(prevState)
-            console.log(isSaved)
-        }
 
-    },[])
-    */
     function checkIsStored() {
         const stored = localStorage.getItem(`${word}Stored`)
         if (stored === 'true') {
@@ -138,8 +126,8 @@ export default function Dictionary() {
             }      
         } else if (isSaved == false && storedWords !== null && checkIsStored()) {
             //remove word
+           localStorage.removeItem(`${word}Stored`)
            
-            //localStorage.removeItem(`${word}`)
             //create new list without target word to remove
             const newList = storedWords.filter(item => item !== word)
             localStorage.setItem('savedWords', JSON.stringify(newList))

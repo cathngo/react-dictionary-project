@@ -162,13 +162,15 @@ ul {
   font-size: 25px;
   max-height: 500px;
   overflow-y: auto;
-  cursor: pointer;
 }
 
 .delete {
   display: none;
+  cursor: pointer;
 }
-
+.click-word {
+  cursor: pointer;
+}
 .word-delete {
   padding: 10px;
   height: 40px;

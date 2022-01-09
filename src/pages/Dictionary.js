@@ -15,17 +15,20 @@ export default function Dictionary() {
                                             audio: '',
                                             meanings: []
                                         })
-    const prevState = localStorage.getItem(`${word}`)
+
     const [isSaved, setIsSaved] = useState(false)
 
     //check if word was saved or not                                 
     useEffect(()=>{
-        const prevState = localStorage.getItem(`${word}`)
-        setIsSaved(prevState === null || prevState === 'false'? false: true)
+        if (checkIsStored()) {
+            setIsSaved(true)
+            console.log('is saved')
+        } else {
+            setIsSaved(false)
+        }
     }, [word])
 
     useEffect(()=> {
-        
         const fetchResults = async () => {
             try {
                 const response = await fetch(`${url}${word}`)
@@ -40,7 +43,6 @@ export default function Dictionary() {
                         combinedText = combinedText + ","+ item['text']
                     }
                 })
-
 
                //grab each synonym and put into one array
                 const synonymArray = []
@@ -57,9 +59,7 @@ export default function Dictionary() {
                     meanings: data[0]['meanings'],
                     synonyms: synonymArray,
                 })
-
                 console.log(content)
-
             } catch (error) {
                 console.log(error)
             }
@@ -79,37 +79,32 @@ export default function Dictionary() {
         window.location.reload()
     }
 
-
     const favouriteWord = () => {
         setIsSaved(!isSaved)
-     
     }
 
     function checkIsStored() {
-        const stored = localStorage.getItem(`${word}Stored`)
-        if (stored === 'true') {
-            return true
-        } else if (stored === null){
+        const storedWords = JSON.parse(localStorage.getItem('savedWords'));
+
+        if (storedWords === null) {
             return false
         }
+
+        for (let i = 0; i < storedWords.length; i++) {
+            if (storedWords[i] === word) {
+                return true
+            }
+        }
+
+        return false
+        
     }
 
     useEffect(()=>{
-        //check if any words saved in local storage
         const storedWords = JSON.parse(localStorage.getItem('savedWords'));
-
-        //save state of curr word in local storage
-        if (isSaved === true) {
-            localStorage.setItem(`${word}`, 'true')
-        } else {
-            localStorage.setItem(`${word}`, 'false')
-        }
-  
-   
+        
         //save word if they clicked true and not already saved
         if (isSaved === true && !checkIsStored()) {
-            //mark word as stored
-            localStorage.setItem(`${word}Stored`, 'true')
 
             //if no words in local storage saved, save curr word
             if (storedWords == null) {
@@ -125,9 +120,6 @@ export default function Dictionary() {
                 localStorage.setItem('savedWords', JSON.stringify(newList))
             }      
         } else if (isSaved == false && storedWords !== null && checkIsStored()) {
-            //remove word
-           localStorage.removeItem(`${word}Stored`)
-           
             //create new list without target word to remove
             const newList = storedWords.filter(item => item !== word)
             localStorage.setItem('savedWords', JSON.stringify(newList))
@@ -157,7 +149,6 @@ export default function Dictionary() {
                         { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
                             <Bookmark onClick={favouriteWord} className='clickable'/>
                         }
-                        {/*<img src={bookmark} alt='bookmark' onClick={favouriteWord} ref={bookmarkRef}/>*/}
                         <span style={{fontSize: '40px'}}>{content.title}</span>
                     </div>
                     <div className='phonetics'>

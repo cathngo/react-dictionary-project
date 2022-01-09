@@ -165,6 +165,23 @@ ul {
   cursor: pointer;
 }
 
+.delete {
+  display: none;
+}
+
+.word-delete {
+  padding: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.word-delete:hover {
+  background-color: #eeeeee9f;
+}
+.word-delete:hover .delete {
+  display: block;
+}
 /* DICTIONARY */
 
 .dict-container {

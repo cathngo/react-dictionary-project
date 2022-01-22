@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {ReactComponent as Bookmark} from '../bookmark.svg'
 import {useParams} from 'react-router-dom'
 import audio from '../audio.svg'
+import Error from './Error'
 //page switch
 import history from '../history';
 
@@ -17,12 +18,14 @@ export default function Dictionary() {
                                         })
 
     const [isSaved, setIsSaved] = useState(false)
+    const [isPhoneticsValid, setIsPhoneticsValid] = useState(false)
+    const [isError, setIsError] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     //check if word was saved or not                                 
     useEffect(()=>{
         if (checkIsStored()) {
             setIsSaved(true)
-            console.log('is saved')
         } else {
             setIsSaved(false)
         }
@@ -52,16 +55,35 @@ export default function Dictionary() {
                     })
                 })
                 
-                //set content with information from dictionary api
-                setContent({title: data[0]['word'], 
-                    text: '/' + combinedText + "/",
-                    audio: data[0]['phonetics'][0]['audio'],
-                    meanings: data[0]['meanings'],
-                    synonyms: synonymArray,
-                })
-                console.log(content)
+                //no phonetics available
+                if (data[0]['phonetics'].length === 0) {
+                    
+                    //set content with information from dictionary api
+                    setContent({title: data[0]['word'], 
+                        meanings: data[0]['meanings'],
+                        synonyms: synonymArray,
+                    })
+                    
+                } else{
+                    
+                    //set content with information from dictionary api
+                    setContent({title: data[0]['word'], 
+                        text: '/' + combinedText + "/",
+                        audio: data[0]['phonetics'][0]['audio'],
+                        meanings: data[0]['meanings'],
+                        synonyms: synonymArray,
+                    })
+                    setIsPhoneticsValid(true)
+                }
+                
+                //stop loading
+                setIsLoading(false)
+      
             } catch (error) {
                 console.log(error)
+                setIsError(true)
+    
+                
             }
         }
         fetchResults()
@@ -102,7 +124,7 @@ export default function Dictionary() {
 
     useEffect(()=>{
         const storedWords = JSON.parse(localStorage.getItem('savedWords'));
-        
+
         //save word if they clicked true and not already saved
         if (isSaved === true && !checkIsStored()) {
 
@@ -126,46 +148,56 @@ export default function Dictionary() {
         }
     },[isSaved])
 
+    //show error page if could not fetch definition
+    if (isError) {
+        return <Error found={true}/>
+    }
+    else if (isLoading) {
+        return <></>
+    }
 
-    return (
-        <>
-        <div className='dict-container'>
-            <div className='synonym-container'>
+    else {
+        return (
+            
+            <>
+            <div className='dict-container'>
+                <div className='synonym-container'>
+                    <div>
+                        <p className='synonym-title'>Synonyms</p>
+                        <div className='synonym-underline'></div>
+                    </div>
+                    <div className='words-container'>
+                        {content.synonyms.map((item,index)=>{
+                            return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
+                        })}
+                    </div>
+                </div>
                 <div>
-                    <p className='synonym-title'>Synonyms</p>
-                    <div className='synonym-underline'></div>
-                </div>
-                <div className='words-container'>
-                    {content.synonyms.map((item,index)=>{
-                        return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
-                    })}
-                </div>
-            </div>
-            <div>
-                <div className='definition-container'>
-                    <p className='definition-title'>Definition</p>
-                    <div className='definition-underline'></div>
-                    <div className='definition-header'>
-                        { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
-                            <Bookmark onClick={favouriteWord} className='clickable'/>
-                        }
-                        <span style={{fontSize: '40px'}}>{content.title}</span>
-                    </div>
-                    <div className='phonetics'>
-                        <p className='pronunciation'>{content.text}</p>
-                        <img src={audio} alt='audio' onClick={playAudio} className='audio'/>
-                    </div>
-                    {content.meanings.map((item, index)=>{
-                        return(
-                        <div key={index}>
-                            <p className='definition' key={index + 5}>{item['partOfSpeech']}</p>
-                            <p className='definition' key={index + 3}>{item['definitions'][0]['definition']}</p>
+                    <div className='definition-container'>
+                        <p className='definition-title'>Definition</p>
+                        <div className='definition-underline'></div>
+                        <div className='definition-header'>
+                            { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
+                                <Bookmark onClick={favouriteWord} className='clickable'/>
+                            }
+                            <span style={{fontSize: '40px'}}>{content.title}</span>
                         </div>
-                        )
-                    })}
+                        <div className='phonetics'>
+                            <p className='pronunciation'>{content.text}</p>
+                            {isPhoneticsValid && <img src={audio} alt='audio' onClick={playAudio} className='audio'/>}
+                        </div>
+                        {content.meanings.map((item, index)=>{
+                            return(
+                            <div key={index}>
+                                <p className='definition' key={index + 5}>{item['partOfSpeech']}</p>
+                                <p className='definition' key={index + 3}>{item['definitions'][0]['definition']}</p>
+                            </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-        </div>
-        </>
-    );
+            </>
+        );
+    }
 }

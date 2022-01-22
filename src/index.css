@@ -277,3 +277,29 @@ ul {
   cursor: pointer;
   margin-top: 20px;
 }
+
+/*ERROR*/
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error-img {
+  height: 800px;
+  width: 500px;
+  object-fit: cover;
+}
+
+.error-grid {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+}
+
+.home-button {
+  background-color: #91acc0;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}

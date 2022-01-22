@@ -36,9 +36,7 @@ export default function SavedWords() {
                 <div className='vocab-underline'></div>
                 <div className='saved-words'>
                     {
-                        
                     displayList.map((item, index)=> {
-           
                         return (item === 'emptyList'? <p>Your list is empty. Search for a word and click on the bookmark icon to save it!</p>:
                         <div className='word-delete'>
                             <p key={index+23} onClick={()=>{handleWord(item)}} className='click-word'>{item}</p>

@@ -4,26 +4,24 @@ import bookmark from '../bookmark.svg'
 import search from '../search.svg'
 //link
 import { Link } from "react-router-dom";
-//context api
-import { useGlobalContext } from '../context';
+
 //page switch
 import history from '../history';
 
-import Dictionary from '../pages/Dictionary';
 export default function Navbar() {
-    //const {searchTerm, setSearchTerm} = useGlobalContext()
     const [searchTerm, setSearchTerm] = useState('')
 
     const handleSubmit = (e) => {
         //redirect to definition page
         history.push(`/define/${searchTerm}`)
-        //setSearchTerm('')
     }
     
     return (
         <nav className='nav-header'>
             <div className='nav-left'>
-                <img src={logo} alt='logo' className='logo'/>
+                <Link to='/' className='link'>
+                    <img src={logo} alt='logo' className='logo'/>
+                </Link>
                 <ul>
                     <li className='dict-text'>
                           <Link to='/' className='link'>Home</Link>
@@ -38,10 +36,12 @@ export default function Navbar() {
                 value={searchTerm} 
                 onChange={(e)=>{setSearchTerm(e.target.value)}}
                 />
-                <button className='search-button'><img src={search} alt='search'></img></button>
+                <button className='search-button' onClick={handleSubmit} style={{cursor:'pointer'}}><img src={search} alt='search'></img></button>
             </form>
             <div className='nav-right'>
-                <img src={bookmark} alt='bookmark' className='bookmark'/>
+                 <Link to='/save' className='link'>
+                    <img src={bookmark} alt='bookmark' className='bookmark'/>
+                </Link>
                 <ul>
                     <li>
                     <Link to='/save' className='link'>Saved Words</Link>

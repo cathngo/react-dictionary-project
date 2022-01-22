@@ -3,8 +3,7 @@ import {ReactComponent as Bookmark} from '../bookmark.svg'
 import {useParams} from 'react-router-dom'
 import audio from '../audio.svg'
 import Error from './Error'
-//page switch
-import history from '../history';
+import { useNavigate } from "react-router-dom";
 
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
@@ -21,6 +20,8 @@ export default function Dictionary() {
     const [isPhoneticsValid, setIsPhoneticsValid] = useState(false)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
+
+    const navigate = useNavigate();
 
     //check if word was saved or not                                 
     useEffect(()=>{
@@ -97,15 +98,14 @@ export default function Dictionary() {
 
     //display definition of synonym clicked
     const handleSynonym = (synonym) => {
-        history.push(`/define/${synonym}`)
-        window.location.reload()
+        navigate(`/define/${synonym}`)
     }
 
     const favouriteWord = () => {
         setIsSaved(!isSaved)
     }
 
-    function checkIsStored() {
+    function checkIsStored() { 
         const storedWords = JSON.parse(localStorage.getItem('savedWords'));
 
         if (storedWords === null) {

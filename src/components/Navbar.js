@@ -4,16 +4,15 @@ import bookmark from '../bookmark.svg'
 import search from '../search.svg'
 //link
 import { Link } from "react-router-dom";
-
-//page switch
-import history from '../history';
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
     const [searchTerm, setSearchTerm] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         //redirect to definition page
-        history.push(`/define/${searchTerm}`)
+        navigate(`/define/${searchTerm}`)
     }
     
     return (

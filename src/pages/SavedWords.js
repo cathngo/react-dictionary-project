@@ -1,15 +1,16 @@
 import React , {useState} from 'react'
 import history from '../history';
 import trash from '../trash.svg'
+import { useNavigate } from "react-router-dom";
 
 export default function SavedWords() {
     const storedWords = JSON.parse(localStorage.getItem('savedWords'));
     const [displayList, setDisplayList] = useState(storedWords === null? ['emptyList']: storedWords)
+    const navigate = useNavigate()
 
     //display definition of synonym clicked
     const handleWord = (word) => {
-        history.push(`/define/${word}`)
-        window.location.reload()
+        navigate(`/define/${word}`)
     }
 
     //delete item from list 

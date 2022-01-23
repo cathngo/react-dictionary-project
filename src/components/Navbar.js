@@ -1,8 +1,7 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import logo from '../logo.svg'
 import bookmark from '../bookmark.svg'
 import search from '../search.svg'
-//link
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -23,12 +22,12 @@ export default function Navbar() {
                 </Link>
                 <ul>
                     <li className='dict-text'>
-                          <Link to='/' className='link'>Home</Link>
+                          <Link to='/' className='link'>HOME</Link>
                     </li>
                 </ul>
             </div>
             <form className='search' onSubmit={handleSubmit}>
-                <div className='language'>English</div>
+                <div className='language'>ENGLISH</div>
                 <input type='text' 
                 placeholder='Search for a word' 
                 className='search-bar' 
@@ -43,7 +42,7 @@ export default function Navbar() {
                 </Link>
                 <ul>
                     <li>
-                    <Link to='/save' className='link'>Saved Words</Link>
+                    <Link to='/save' className='link'>SAVED WORDS</Link>
                     </li>
                 </ul>
             </div>

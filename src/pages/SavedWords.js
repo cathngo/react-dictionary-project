@@ -1,5 +1,4 @@
 import React , {useState} from 'react'
-import history from '../history';
 import trash from '../trash.svg'
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +14,6 @@ export default function SavedWords() {
 
     //delete item from list 
     const handleDelete = (word) => {
-
         for (let i = 0; i < storedWords.length; i++) {
             console.log(storedWords[i])
         }

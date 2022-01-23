@@ -17,8 +17,8 @@ code {
 }
 /* FONT */
 @font-face {
-  font-family: NeueMontreal;
-  src: url(./fonts/NeueMontreal-Regular.otf);
+  font-family: GilroyLight;
+  src: url(./fonts/GilroyLight.ttf);
 }
 /* NAVBAR */
 .link {
@@ -53,8 +53,8 @@ ul {
   justify-content: space-between;
   margin: 5px;
   padding-bottom: 10px;
-  font-family: NeueMontreal;
-  font-size: 16px;
+  font-family: GilroyLight;
+  font-size: 14px;
   box-shadow: 0px 24px 3px -24px rgba(23, 19, 35, 0.274);
 }
 
@@ -99,45 +99,38 @@ ul {
 
 .home-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-left: 200px;
   height: 100%;
   font-family: "Playfair Display";
 }
-
-.daily-word-box {
-  min-height: 150px;
-  max-width: 600px;
-  font-size: x-large;
-}
-.word-noun {
-  display: flex;
-  align-items: baseline;
+.dictionary-emphasis {
+  color: #7c99ac;
 }
 
-.title {
-  margin-right: 10px;
+.green-shape {
+  position: fixed;
+  top: 50px;
+  left: -50px;
+  height: 500px;
+  z-index: -1;
+}
+
+.logo-home {
+  height: 40vh;
+  margin-top: 30vh;
+}
+.word-box {
+  margin-top: 100px;
+  width: 100vh;
 }
 
 .home-header {
-  margin-bottom: 10px;
-  font-size: 65px;
+  font-size: 70px;
   word-spacing: 10px;
   color: #525455;
 }
-.home-underline {
-  background-color: #d3dedc;
-  height: 10px;
-  width: 300px;
-  margin-bottom: 20px;
-}
-
-.daily-word-definition {
-  margin-top: 0px;
-}
 
 /*SAVED WORDS*/
-
 .save-container {
   display: grid;
   justify-content: center;

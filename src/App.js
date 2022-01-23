@@ -5,15 +5,11 @@ import Navbar from './components/Navbar';
 import SavedWords from './pages/SavedWords'
 import Dictionary from './pages/Dictionary';
 import Error from './pages/Error'
-//router
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
-//page switch 
-import history from './history';
 function App() {
   return (
-
-    <Router history={history}>
+    <Router>
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>

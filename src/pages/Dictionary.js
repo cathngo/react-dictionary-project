@@ -23,7 +23,7 @@ export default function Dictionary() {
 
     const navigate = useNavigate();
 
-    //check if word was saved or not                                 
+    //saved state of word                                
     useEffect(()=>{
         if (checkIsStored()) {
             setIsSaved(true)
@@ -36,7 +36,7 @@ export default function Dictionary() {
         const fetchResults = async () => {
             try {
                 const response = await fetch(`${url}${word}`)
-                const data= await response.json()
+                const data = await response.json()
     
                 //combine text phoenetics into one string
                 let combinedText = ''
@@ -83,8 +83,6 @@ export default function Dictionary() {
             } catch (error) {
                 console.log(error)
                 setIsError(true)
-    
-                
             }
         }
         fetchResults()
@@ -119,7 +117,6 @@ export default function Dictionary() {
         }
 
         return false
-        
     }
 
     useEffect(()=>{
@@ -158,45 +155,44 @@ export default function Dictionary() {
 
     else {
         return (
-            
             <>
-            <div className='dict-container'>
-                <div className='synonym-container'>
+                <div className='dict-container'>
+                    <div className='synonym-container'>
+                        <div>
+                            <p className='synonym-title'>Synonyms</p>
+                            <div className='synonym-underline'></div>
+                        </div>
+                        <div className='words-container'>
+                            {content.synonyms.map((item,index)=>{
+                                return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
+                            })}
+                        </div>
+                    </div>
                     <div>
-                        <p className='synonym-title'>Synonyms</p>
-                        <div className='synonym-underline'></div>
-                    </div>
-                    <div className='words-container'>
-                        {content.synonyms.map((item,index)=>{
-                            return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
-                        })}
-                    </div>
-                </div>
-                <div>
-                    <div className='definition-container'>
-                        <p className='definition-title'>Definition</p>
-                        <div className='definition-underline'></div>
-                        <div className='definition-header'>
-                            { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
-                                <Bookmark onClick={favouriteWord} className='clickable'/>
-                            }
-                            <span style={{fontSize: '40px'}}>{content.title}</span>
-                        </div>
-                        <div className='phonetics'>
-                            <p className='pronunciation'>{content.text}</p>
-                            {isPhoneticsValid && <img src={audio} alt='audio' onClick={playAudio} className='audio'/>}
-                        </div>
-                        {content.meanings.map((item, index)=>{
-                            return(
-                            <div key={index}>
-                                <p className='definition' key={index + 5}>{item['partOfSpeech']}</p>
-                                <p className='definition' key={index + 3}>{item['definitions'][0]['definition']}</p>
+                        <div className='definition-container'>
+                            <p className='definition-title'>Definition</p>
+                            <div className='definition-underline'></div>
+                            <div className='definition-header'>
+                                { isSaved == true ?  <Bookmark fill='#F4B6B6' className='clickable' onClick={favouriteWord}/> :
+                                    <Bookmark onClick={favouriteWord} className='clickable'/>
+                                }
+                                <span style={{fontSize: '40px'}}>{content.title}</span>
                             </div>
-                            )
-                        })}
+                            <div className='phonetics'>
+                                <p className='pronunciation'>{content.text}</p>
+                                {isPhoneticsValid && <img src={audio} alt='audio' onClick={playAudio} className='audio'/>}
+                            </div>
+                            {content.meanings.map((item, index)=>{
+                                return(
+                                <div key={index}>
+                                    <p className='definition' key={index + 5}>{item['partOfSpeech']}</p>
+                                    <p className='definition' key={index + 3}>{item['definitions'][0]['definition']}</p>
+                                </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
             </>
         );
     }

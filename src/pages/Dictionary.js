@@ -17,7 +17,6 @@ export default function Dictionary() {
                                         })
 
     const [isSaved, setIsSaved] = useState(false)
-    const [isPhoneticsValid, setIsPhoneticsValid] = useState(false)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -56,27 +55,14 @@ export default function Dictionary() {
                     })
                 })
                 
-                //no phonetics available
-                if (data[0]['phonetics'].length === 0) {
-                    
-                    //set content with information from dictionary api
-                    setContent({title: data[0]['word'], 
-                        meanings: data[0]['meanings'],
-                        synonyms: synonymArray,
-                    })
-                    
-                } else{
-                    
-                    //set content with information from dictionary api
-                    setContent({title: data[0]['word'], 
-                        text: '/' + combinedText + "/",
-                        audio: data[0]['phonetics'][0]['audio'],
-                        meanings: data[0]['meanings'],
-                        synonyms: synonymArray,
-                    })
-                    setIsPhoneticsValid(true)
-                }
-                
+                //set the data to state
+                setContent({title: data[0]['word'], 
+                    text: data[0]['phonetics'].length === 0 ? null : '/' + combinedText + "/",
+                    audio: data[0]['phonetics'].length === 0 ? null: data[0]['phonetics'][0]['audio'],
+                    meanings: data[0]['meanings'],
+                    synonyms: synonymArray,
+                })
+            
                 //stop loading
                 setIsLoading(false)
       
@@ -180,7 +166,7 @@ export default function Dictionary() {
                             </div>
                             <div className='phonetics'>
                                 <p className='pronunciation'>{content.text}</p>
-                                {isPhoneticsValid && <img src={audio} alt='audio' onClick={playAudio} className='audio'/>}
+                                {content.audio !== null && <img src={audio} alt='audio' onClick={playAudio} className='audio'/>}
                             </div>
                             {content.meanings.map((item, index)=>{
                                 return(

@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/react-dictionary-project/static/css/main.66131ec5.css",
+    "main.js": "/react-dictionary-project/static/js/main.5b2f347d.js",
+    "static/js/787.2286996b.chunk.js": "/react-dictionary-project/static/js/787.2286996b.chunk.js",
+    "static/media/GilroyLight.ttf": "/react-dictionary-project/static/media/GilroyLight.1822a291dd62fe2cca72.ttf",
+    "static/media/404.svg": "/react-dictionary-project/static/media/404.c276cee864d44b3ca5422b6eeadae2a6.svg",
+    "static/media/logo.svg": "/react-dictionary-project/static/media/logo.3dfb43e5644dc9ec05c2676e93b90e8c.svg",
+    "index.html": "/react-dictionary-project/index.html",
+    "static/media/trash.svg": "/react-dictionary-project/static/media/trash.9a20501ff5e0774ee299eb12ca0b882a.svg",
+    "static/media/audio.svg": "/react-dictionary-project/static/media/audio.d8e3417e4b973e57e2edb4c1aa655e5d.svg",
+    "static/media/green-blob.svg": "/react-dictionary-project/static/media/green-blob.5f838a2eaa33785d751f69bfb393b17b.svg",
+    "static/media/search.svg": "/react-dictionary-project/static/media/search.1b34d025f2b1837555d26620410d7510.svg",
+    "static/media/bookmark.svg": "/react-dictionary-project/static/media/bookmark.a066fc51c2cf67c97c207cbdbed72978.svg",
+    "main.66131ec5.css.map": "/react-dictionary-project/static/css/main.66131ec5.css.map",
+    "main.5b2f347d.js.map": "/react-dictionary-project/static/js/main.5b2f347d.js.map",
+    "787.2286996b.chunk.js.map": "/react-dictionary-project/static/js/787.2286996b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.66131ec5.css",
+    "static/js/main.5b2f347d.js"
+  ]
+}

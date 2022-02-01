@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SavedWords() {
     const storedWords = JSON.parse(localStorage.getItem('savedWords'));
-    const [displayList, setDisplayList] = useState(storedWords === null? ['emptyList']: storedWords)
+    const [displayList, setDisplayList] = useState(storedWords === null || storedWords.length === 0? ['emptyList']: storedWords)
     const navigate = useNavigate()
 
     //display definition of synonym clicked
@@ -14,10 +14,6 @@ export default function SavedWords() {
 
     //delete item from list 
     const handleDelete = (word) => {
-        for (let i = 0; i < storedWords.length; i++) {
-            console.log(storedWords[i])
-        }
-        
         //create new list without target word to remove
         const newList = storedWords.filter(item => item !== word)
         localStorage.setItem('savedWords', JSON.stringify(newList))
@@ -36,7 +32,7 @@ export default function SavedWords() {
                 <div className='saved-words'>
                     {
                     displayList.map((item, index)=> {
-                        return (item === 'emptyList'? <p>Your list is empty. Search for a word and click on the bookmark icon to save it!</p>:
+                        return (item === 'emptyList'? <p>Your list is empty.</p>:
                         <div className='word-delete'>
                             <p key={index+23} onClick={()=>{handleWord(item)}} className='click-word'>{item}</p>
                             <img src={trash} alt='delete' className='delete' onClick={()=>handleDelete(item)}/>

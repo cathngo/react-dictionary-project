@@ -34,7 +34,7 @@ export default function Dictionary() {
     useEffect(()=> {
         const fetchResults = async () => {
             try {
-                const response = await fetch(`${url}${word}`)
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
                 const data = await response.json()
     
                 //combine text phoenetics into one string

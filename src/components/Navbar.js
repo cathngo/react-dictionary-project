@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import logo from '../logo.svg'
 import bookmark from '../bookmark.svg'
 import search from '../search.svg'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import home from '../home.svg'
 
 export default function Navbar() {
     const [searchTerm, setSearchTerm] = useState('')
@@ -12,13 +12,14 @@ export default function Navbar() {
     const handleSubmit = (e) => {
         //redirect to definition page
         navigate(`/define/${searchTerm}`)
+
     }
     
     return (
         <nav className='nav-header'>
             <div className='nav-left'>
                 <Link to='/' className='link'>
-                    <img src={logo} alt='logo' className='logo'/>
+                    <img src={home} alt='home' className='bookmark'/>
                 </Link>
                 <ul>
                     <li className='dict-text'>

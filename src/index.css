@@ -186,7 +186,6 @@ ul {
 
 .synonym-container {
   background-color: #d3dedc;
-  height: calc(100vh - 60.05px);
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -295,4 +294,18 @@ ul {
   color: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+/*LOADING*/
+
+.load-container {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.load {
+  font-size: 20px;
 }

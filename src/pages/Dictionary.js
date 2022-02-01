@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom'
 import audio from '../audio.svg'
 import Error from './Error'
 import { useNavigate } from "react-router-dom";
+import Loading from './Loading'
 
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
@@ -136,7 +137,7 @@ export default function Dictionary() {
         return <Error found={true}/>
     }
     else if (isLoading) {
-        return <></>
+        return <Loading/>
     }
 
     else {

@@ -40,13 +40,16 @@ export default function Dictionary() {
     
                 //combine text phoenetics into one string
                 let combinedText = ''
-                data[0]['phonetics'].map((item)=>{
-                    if (combinedText == '') {
-                        combinedText = combinedText + item['text']
-                    } else {
-                        combinedText = combinedText + ","+ item['text']
-                    }
-                })
+                if (data[0]['phonetics'] !== undefined || data[0]['phonetics'].length !== 0) {
+                    data[0]['phonetics'].map((item)=>{
+                        if (combinedText == '') {
+                            combinedText = combinedText + item['text']
+                        } else {
+                            combinedText = combinedText + ","+ item['text']
+                        }
+                    })
+                }
+ 
 
                //grab each synonym and put into one array
                 const synonymArray = []

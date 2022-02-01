@@ -186,6 +186,7 @@ ul {
 
 .synonym-container {
   background-color: #d3dedc;
+  min-height: calc(100vh - 60.05px);
   padding: 50px;
   display: flex;
   flex-direction: column;

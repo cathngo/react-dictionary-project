@@ -15,7 +15,7 @@ export default function Error({found}) {
             <div className='error-grid'>
                 <div className='error-content'>
                 <h1>Oops! Page not found.</h1>
-                {!found?<p>Sorry, the page you were looking for could not be found. </p> : <p>Sorry, we could not find the word you were looking for. </p>}
+                {!found?<p>Sorry, the page you were looking for could not be found. </p> : <p>Sorry, an error occured trying to find your word. Please try again later. </p>}
                 <button className='home-button' onClick={handleHome}>Take me home</button>
                 </div>
             </div>

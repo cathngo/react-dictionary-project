@@ -32,50 +32,75 @@ export default function Dictionary() {
         }
     }, [word])
 
+    function combinePhonetics(phonetics) {
+        let combinedText = ''
+        phonetics.map((item)=>{
+            if (combinedText == '') {
+                combinedText = combinedText + item['text']
+            } else {
+                combinedText = combinedText + ","+ item['text']
+            }
+        })
+
+        return combinedText
+    }
+
     useEffect(()=> {
         const fetchResults = async () => {
             try {
                 const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
                 const data = await response.json()
-    
-                //combine text phoenetics into one string
-                let combinedText = ''
-                if (data[0]['phonetics'] !== undefined || data[0]['phonetics'].length !== 0) {
-                    data[0]['phonetics'].map((item)=>{
-                        if (combinedText == '') {
-                            combinedText = combinedText + item['text']
-                        } else {
-                            combinedText = combinedText + ","+ item['text']
-                        }
-                    })
-                }
- 
-
-               //grab each synonym and put into one array
-                const synonymArray = []
-                data[0]['meanings'].map((item)=> {
-                   item['definitions'][0]['synonyms'].map((item)=>{
-                        synonymArray.push(item)
-                    })
-                })
+                const status = await response.status
+                console.log(data)
+                console.log(status)
                 
-                //set the data to state
-                setContent({title: data[0]['word'], 
-                    text: data[0]['phonetics'].length === 0 ? null : '/' + combinedText + "/",
-                    audio: data[0]['phonetics'].length === 0 ? null: data[0]['phonetics'][0]['audio'],
-                    meanings: data[0]['meanings'],
-                    synonyms: synonymArray,
-                })
-            
-                //stop loading
-                setIsLoading(false)
+                if (status !==  200) {
+                    setIsLoading(false)
+                    setIsError(true)
+
+                }
+                
+                else  {
+                    //combine text phoenetics into one string
+                    let combinedText = ''
+                    if (data[0]['phonetics'].length !== 0) {
+                        data[0]['phonetics'].map((item)=>{
+                            if (combinedText == '') {
+                                combinedText = combinedText + item['text']
+                            } else {
+                                combinedText = combinedText + ","+ item['text']
+                            }
+                        })
+                    }
+                    
+                   //grab each synonym and put into one array
+                    const synonymArray = []
+                    data[0]['meanings'].map((item)=> {
+                    item['definitions'][0]['synonyms'].map((item)=>{
+                            synonymArray.push(item)
+                        })
+                    })
+                    
+                    //set the data to state
+                    setContent({title: data[0]['word'], 
+                        text: data[0]['phonetics'].length === 0 ? null : '/' + combinedText + "/",
+                        audio: data[0]['phonetics'].length === 0 ? null: data[0]['phonetics'][0]['audio'],
+                        meanings: data[0]['meanings'],
+                        synonyms: synonymArray,
+                    })
+                
+                    //stop loading
+                    setIsLoading(false)
+                }
       
             } catch (error) {
                 console.log(error)
+                setIsLoading(false)
                 setIsError(true)
             }
         }
         fetchResults()
+
     }, [word])
 
     //audio pronunciation of word
@@ -86,6 +111,7 @@ export default function Dictionary() {
 
     //display definition of synonym clicked
     const handleSynonym = (synonym) => {
+        setIsLoading(true)
         navigate(`/define/${synonym}`)
     }
 

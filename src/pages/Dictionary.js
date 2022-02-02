@@ -5,7 +5,7 @@ import audio from '../audio.svg'
 import Error from './Error'
 import { useNavigate } from "react-router-dom";
 import Loading from './Loading'
-
+import fetchWithTimeout from '../timeout'
 const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
 export default function Dictionary() {
@@ -48,7 +48,7 @@ export default function Dictionary() {
     useEffect(()=> {
         const fetchResults = async () => {
             try {
-                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                const response = await fetchWithTimeout(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,{timeout: 5000})
                 const data = await response.json()
                 const status = await response.status
                 console.log(data)

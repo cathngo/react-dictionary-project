@@ -21,6 +21,7 @@ export default function Dictionary() {
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
+
     const navigate = useNavigate();
 
     //saved state of word                                
@@ -32,18 +33,6 @@ export default function Dictionary() {
         }
     }, [word])
 
-    function combinePhonetics(phonetics) {
-        let combinedText = ''
-        phonetics.map((item)=>{
-            if (combinedText == '') {
-                combinedText = combinedText + item['text']
-            } else {
-                combinedText = combinedText + ","+ item['text']
-            }
-        })
-
-        return combinedText
-    }
 
     useEffect(()=> {
         const fetchResults = async () => {
@@ -65,11 +54,14 @@ export default function Dictionary() {
                     let combinedText = ''
                     if (data[0]['phonetics'].length !== 0) {
                         data[0]['phonetics'].map((item)=>{
-                            if (combinedText == '') {
-                                combinedText = combinedText + item['text']
-                            } else {
-                                combinedText = combinedText + ","+ item['text']
+                            if (item['text'] !== undefined) {
+                                if (combinedText == '') {
+                                    combinedText = combinedText + item['text']
+                                } else {
+                                    combinedText = combinedText + ","+ item['text']
+                                }
                             }
+     
                         })
                     }
                     
@@ -81,10 +73,12 @@ export default function Dictionary() {
                         })
                     })
                     
+
+                    
                     //set the data to state
                     setContent({title: data[0]['word'], 
-                        text: data[0]['phonetics'].length === 0 ? null : '/' + combinedText + "/",
-                        audio: data[0]['phonetics'].length === 0 ? null: data[0]['phonetics'][0]['audio'],
+                        text: data[0]['phonetics'].length === 0 || combinedText === '' ? null : '/' + combinedText + '/',
+                        audio: data[0]['phonetics'].length === 0 || combinedText === '' ? null: data[0]['phonetics'][0]['audio'],
                         meanings: data[0]['meanings'],
                         synonyms: synonymArray,
                     })
@@ -112,7 +106,8 @@ export default function Dictionary() {
     //display definition of synonym clicked
     const handleSynonym = (synonym) => {
         setIsLoading(true)
-        navigate(`/define/${synonym}`)
+        navigate(`/define/${synonym}`) 
+        
     }
 
     const favouriteWord = () => {
@@ -180,7 +175,12 @@ export default function Dictionary() {
                         </div>
                         <div className='words-container'>
                             {content.synonyms.map((item,index)=>{
-                                return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)}>{item}</span>)
+                                if (item.split(" ").length < 2) {
+                                    return(<span className='synoynm-words' key={index+13} onClick={()=>handleSynonym(item)} style={{cursor: 'pointer'}}>{item}</span>)
+                                } else {
+                                    return(<span className='synoynm-words' key={index+13} >{item}</span>)
+                                }
+                                
                             })}
                         </div>
                     </div>

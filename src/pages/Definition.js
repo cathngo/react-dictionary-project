@@ -31,7 +31,6 @@ export default function Definition() {
           };
           
           axios.request(options).then(function (response) {
-              //console.log(response.data.pronunciation.all);
               setPronunciation(response.data.pronunciation.all)
               setIsPronunciationLoading(false);
           }).catch(function (error) {
@@ -87,7 +86,6 @@ export default function Definition() {
         };
 
         axios.request(synonyms).then(function (response) {
-            //console.log(response.data);
             const data = response.data;
             setIsSynonymLoading(false);
             setSynonyms(data.synonyms);
@@ -164,6 +162,7 @@ export default function Definition() {
             localStorage.setItem('savedWords', JSON.stringify(newList))
         }
     },[isSaved])
+
     if (isDefinitionLoading || isSynonymLoading || isPronunciationLoading) {
         return <Loading/>
     } else if (isError) {
@@ -207,7 +206,6 @@ export default function Definition() {
                                         </ol>
                                     </>
                                 );
-                             
                             })}
                         </div>
                     </div>

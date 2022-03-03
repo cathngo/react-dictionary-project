@@ -3,7 +3,6 @@ import './App.css';
 import Home from './pages/Home'
 import Navbar from './components/Navbar';
 import SavedWords from './pages/SavedWords'
-import Dictionary from './pages/Dictionary';
 import Error from './pages/Error'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Definition from './pages/Definition';

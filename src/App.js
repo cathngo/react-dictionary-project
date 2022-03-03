@@ -6,6 +6,7 @@ import SavedWords from './pages/SavedWords'
 import Dictionary from './pages/Dictionary';
 import Error from './pages/Error'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import Definition from './pages/Definition';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/save' element={<SavedWords/>}/>
-        <Route path='/define/:word' element={<Dictionary/>}/>
+        <Route path='/define/:word' element={<Definition/>}/>
         <Route path='*' element={<Error/>}/>
       </Routes>
     </Router>

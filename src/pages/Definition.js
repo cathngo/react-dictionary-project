@@ -15,11 +15,30 @@ export default function Definition() {
     const [isError, setIsError] = useState(false);
     const [isDefinitionLoading, setIsDefinitionLoading] = useState(true);
     const [isSynonymLoading, setIsSynonymLoading] = useState(true);
+    const [isPronunciationLoading, setIsPronunciationLoading] = useState(true);
+    const [pronunciation, setPronunciation] = useState('');
 
     const navigate = useNavigate();
 
     const fetchPronunciation = () => {
-
+        const options = {
+            method: 'GET',
+            url: `https://wordsapiv1.p.rapidapi.com/words/${word}/pronunciation`,
+            headers: {
+              'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+              'x-rapidapi-key': Key(),
+            }
+          };
+          
+          axios.request(options).then(function (response) {
+              //console.log(response.data.pronunciation.all);
+              setPronunciation(response.data.pronunciation.all)
+              setIsPronunciationLoading(false);
+          }).catch(function (error) {
+              setIsPronunciationLoading(false);
+              setIsError(true);
+              console.error(error);
+          });
     }
 
     const fetchDefinition = () => {
@@ -90,6 +109,7 @@ export default function Definition() {
     useEffect(()=>{
         fetchDefinition();
         fetchSynonyms();
+        fetchPronunciation();
 
         if (checkIsStored()) {
             setIsSaved(true)
@@ -144,7 +164,7 @@ export default function Definition() {
             localStorage.setItem('savedWords', JSON.stringify(newList))
         }
     },[isSaved])
-    if (isDefinitionLoading || isSynonymLoading) {
+    if (isDefinitionLoading || isSynonymLoading || isPronunciationLoading) {
         return <Loading/>
     } else if (isError) {
         return <Error found={false}/>
@@ -172,9 +192,7 @@ export default function Definition() {
                                     <Bookmark onClick={favouriteWord} className='clickable'/>
                                 }
                                 <span style={{fontSize: '40px'}}>{`${word}`}</span>
-                            </div>
-                            <div className='phonetics'>
-                                <p className='pronunciation'>pronunciation</p>
+                                <p className='pronunciation'>/{pronunciation}/</p>
                             </div>
                             {Object.entries(results).map(([key,value])=>{
                                 return (
